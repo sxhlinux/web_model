@@ -55,13 +55,19 @@ class Logging_Handler : public Event_Handler {
 
 class Logging_Acceptor : public Event_Handler {
 	public:
-		Logging_Acceptor(const struct sockaddr_in &addr)
+		Logging_Acceptor(int port)
 		{
 			sockfd = socket(AF_INET, SOCK_STREAM, 0);
 			if (sockfd == -1) {
 				std::cerr << "###ERR: create socket failed: " << strerror(errno) << std::endl;
 				return;
 			}
+
+			struct sockaddr_in addr;
+			memset(&addr, 0, sizeof(addr));
+			addr.sin_family = AF_INET;
+			addr.sin_port = port;
+			addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 			if (bind(sockfd, (sockaddr *)&addr, sizeof(addr)) == -1) {
 				std::cerr << "###ERR: bind socket failed: " << strerror(errno) << std::endl;

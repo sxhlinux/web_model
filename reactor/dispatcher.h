@@ -42,6 +42,8 @@ class Initiation_Dispatcher {
 #define	MAX_EVENTS 10			/*  */
 class Sxh_Dispatcher : public Initiation_Dispatcher {
 	public:
+		static pthread_mutex_t mtx;
+
 		static Sxh_Dispatcher* get_instance(void)
 		{
 			if (instance == nullptr) {
@@ -98,9 +100,10 @@ class Sxh_Dispatcher : public Initiation_Dispatcher {
 			return EXIT_FAILURE;
 		}
 
-	private:
+	protected:
 		Sxh_Dispatcher()
 		{
+			pthread_mutex_init(&mtx, NULL);
 			epollfd = epoll_create(MAX_EVENTS);
 			if (epollfd == -1) {
 				std::cerr << "epoll_create failed: " << strerror(errno) << std::endl;
@@ -108,9 +111,12 @@ class Sxh_Dispatcher : public Initiation_Dispatcher {
 			}
 		}
 
-		static Sxh_Dispatcher *instance;
-		static pthread_mutex_t mtx;
+	private:
+		static Sxh_Dispatcher *instance; 
 
 		int epollfd;
 };
+
+Sxh_Dispatcher *Sxh_Dispatcher::instance = nullptr;
+pthread_mutex_t Sxh_Dispatcher::mtx;
 #endif   /* ----- #ifndef dispatcher_INC  ----- */

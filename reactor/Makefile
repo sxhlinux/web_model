@@ -3,7 +3,7 @@
 CXXFLAGS = -MMD -MP -I./include -I. --std=c++11 -Wall -Werror -fPIC -fsanitize=address -fno-omit-frame-pointer
 
 #-Wl,-rpath与 -L分别是在链接和运行时生效， $$ORIGIN是一个表示当前目录的宏
-LDFLAGS = -lpthread -lasan -Wl,-rpath=/usr/local/lib64 -L/usr/local/lib64
+LDFLAGS = -lpthread -lasan
 
 DIST_DIR = tmp/
 

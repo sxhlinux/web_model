@@ -16,6 +16,9 @@
 int main(int argc, char *argv[])
 {
 	std::cout << "Hello! I'm the reactor model server " << std::endl;
+	new Logging_Acceptor(6000);
+	Sxh_Dispatcher *dispatcher = Sxh_Dispatcher::get_instance();
+	dispatcher->handle_events();
 
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
