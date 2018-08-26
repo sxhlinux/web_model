@@ -1,9 +1,9 @@
 #-MMD 自动生成包含obj文件与源文件、头文件依赖关系的.d后缀文件
 #这样就解决了修改头文件不触发make重新编译的问题
-CXXFLAGS = -MMD -MP -I./include -I. --std=c++11 -Wall -Werror -fPIC -fsanitize=address -fno-omit-frame-pointer
+CXXFLAGS = -MMD -MP -I./include -I. --std=c++11 -Wall -Werror #-fPIC -fsanitize=address -fno-omit-frame-pointer
 
 #-Wl,-rpath与 -L分别是在链接和运行时生效， $$ORIGIN是一个表示当前目录的宏
-LDFLAGS = -lpthread -lasan
+LDFLAGS = -lpthread #-lasan
 
 DIST_DIR = tmp/
 

@@ -61,7 +61,7 @@ class Sxh_Dispatcher : public Initiation_Dispatcher {
 			evt.events = EPOLLIN | EPOLLET;
 			evt.data.ptr = eh;
 
-			if (epoll_ctl(epollfd, EPOLL_CTL_ADD, eh->get_handle(), &evt) == 0) {
+			if (epoll_ctl(epollfd, EPOLL_CTL_ADD, eh->get_handle(), &evt) == -1) {
 				std::cerr << "epoll_ctl add event failed: " << strerror(errno) << std::endl;
 				return EXIT_FAILURE;
 			}
