@@ -26,9 +26,8 @@
 
 int main(int argc, char *argv[])
 {
-	int sockfd, new_fd;
+	int sockfd;
 	struct sockaddr_in target;
-	char buf[1024];
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd == -1) {
