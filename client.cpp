@@ -44,6 +44,25 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
+	char buf[1024] = {'\0'};
+	struct iovec iov;
+	iov.iov_base = buf;
+	iov.iov_len = 1024;
+	struct msghdr msg;
+	msg.msg_name = NULL;
+	msg.msg_namelen = 0;
+	msg.msg_iovlen = 1;
+	msg.msg_iov = &iov;
+	msg.msg_control = 0;
+	msg.msg_controllen = 0;
+
+	strcpy(buf, "hello reactor");
+	int retval = sendmsg(sockfd, &msg, 0);
+	if (retval == -1) 
+		std::cerr << "sendmsg failed " << strerror(errno) << std::endl;
+	else
+		std::cout << "sendmsg 'hello reactor' successfully" << std::endl;
+
 	close(sockfd);
 
 	return EXIT_SUCCESS;

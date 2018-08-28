@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <fcntl.h>
 
 #include <cstdio>
@@ -84,6 +85,7 @@ class Logging_Acceptor : public Event_Handler {
 			struct sockaddr_in peer_addr;
 			socklen_t addrlen;
 			int conn_sock = accept(sockfd, (struct sockaddr *)&peer_addr, &addrlen);
+			std::cout << "accept new connection from " << inet_ntoa(peer_addr.sin_addr) << ":" << peer_addr.sin_port << std::endl;
 
 			new Logging_Handler(conn_sock);
 		}
